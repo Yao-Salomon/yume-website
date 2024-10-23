@@ -1,0 +1,413 @@
+{% extends 'general/base.html'%}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item sm me-1"><a title="Lien vers l'accueil" class="text-white text-decoration-none" href="{% url 'home'%}">Accueil</a></li>
+<li class="breadcrumb-item sm me-1"><a title="Lien vers la page de connexion" class="text-white text-decoration-none" href="{% url 'formulaires'%}">Formulaires</a></li>
+<li class="breadcrumb-item sm me-1 active" aria-current="page"><a title="Lien vers la page de {{client.nom_du_profil}}" class="text-warning text-decoration-none" href="{% url 'ecommerce' %}">Formulaire ecommerce</a></li>
+{% endblock %} 
+
+{% block contenu %}
+<div class="row">
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-12 col-md-8 my-5">
+        <form enctype="multipart/form-data" class="p-2 border border-primary border-1" method="post" novalidate>
+            <div>
+                <h1 class="fancy fs-1 text-center">Formulaire pour la création d'un site d'Ecommerce</h1>
+                <p>
+                    Ce formulaire est un formulaire nous permettant d'établir le cahier de charges
+                    necéssaire à la création d'un site d'Ecommerce. Remplissez le avec soin et autant de précision que possible.
+                    Le formulare comprend quatre sections: Jaune (Présentation du demandeur), Bleu( Présentation du projet), Violet( Détails graphique) et Vert( Gestion de l'application après projet).
+                    Vous pouvez sautez à tout moment d'une section à l'autre comme bon vous semble en cliquant sur le bouton de la section correspondante.
+                </p>
+                <p class="fw-bolder">Nombre de groupes de question: <span class="badge badge-pill bg-primary">3</span></p>                
+                <div class="d-flex justify-content-evenly">
+                    <a class="btn btn-warning mx-1" href="#section1"> Section <span class="badge bg-white text-dark">1</span></a>
+                    <a class="btn btn-annuaire-primary me-1" href="#section2"> Section <span class="badge bg-white text-dark">2</span></a>
+                    <a class="btn btn-yume-primary me-1" href="#section3"> Section <span class="badge bg-white text-dark">3</span></a>
+                    <a class="btn btn-success me-1" href="#section4"> Section <span class="badge bg-white text-dark">4</span></a>
+
+                </div>
+            </div>
+            {% csrf_token %}
+            {% if messages %}
+            <!--boucle sur les erreurs-->
+            {% for message in messages %}
+            <p class="alert alert-warning text-center small">{{ message }}</p>
+            {% endfor %} 
+            {% endif %}
+            {% if form.errors %}
+                {% for error in form.errors %}
+                    <p class="alert alert-primary small"> Une erreur est survenue sur le champ:{{error}}</p>
+                {% endfor %}
+            {% endif %}
+            <div class="d-flex justify-content-around align-items-around flex-column">
+
+                <div id="section1" class="border p-2 border-2  border-warning my-2">
+                    
+                    <h2 class="titre fs-2 text-center">Présentation de l'entreprise et du demandeur</h2>
+                    <p>
+                        Ce groupe de questions concerne les généralités sur vous. C'est un groupe à titre informatif nous permettant de savoir qui vous
+                        êtes et nous donnant aussi la possibilité de vous contactez.
+                    </p>
+                    <p class="fw-bolder">Nombre de questions: <span class="badge badge-pill bg-warning">4</span></p>
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.username.id_for_label}}" class="fw-bolder text-primary">Nom et prénom(s)</label>
+                        {{form.username}}
+                        <p class="small">{{form.username.help_text}}</p>
+                    </div>
+                    {% if form.nom_du_profil.errors %}
+                        {% for error in form.nom_du_profil.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+    
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.mail.id_for_label}}" class="fw-bolder text-primary">Email</label>
+                        {{form.mail}}
+                        <p class="small">{{form.mail.help_text}}</p>
+                    </div>
+                    {% if form.mail.errors %}
+                        {% for error in form.mail.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.numero.id_for_label}}" class="fw-bolder text-primary">Numéro(s)</label>
+                        {{form.numero}}
+                        <p class="small">{{form.numero.help_text}}</p>
+                    </div>
+                    {% if form.numero.errors %}
+                        {% for error in form.numero.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.domaine.id_for_label}}" class="fw-bolder text-primary">Nom de domaine</label>
+                        {{form.domaine}}
+                        <p class="small">{{form.domaine.help_text|safe}}</p>
+                    </div>
+                    {% if form.domaine.errors %}
+                        {% for error in form.domaine.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+    
+                </div>
+                <div class="d-flex justify-content-evenly my-1">
+                    <a class="btn btn-warning mx-1" href="#section1"> Section <span class="badge bg-white text-dark">1</span></a>
+                    <a class="btn btn-annuaire-primary me-1" href="#section2"> Section <span class="badge bg-white text-dark">2</span></a>
+                    <a class="btn btn-yume-primary me-1" href="#section3"> Section <span class="badge bg-white text-dark">3</span></a>
+                    <a class="btn btn-success me-1" href="#section4"> Section <span class="badge bg-white text-dark">4</span></a>
+
+                </div>
+                <div id="section2" class="border p-2 border-2  border-annuaire-primary">
+                    
+                    <h2 class="titre fs-2 text-center"> Description Détaillée du projet</h2>
+                    <p>
+                        Ce groupe de questions concerne la description détaillée de votre projet.
+                    </p>
+                    <p class="fw-bolder">Nombre de questions: <span class="badge badge-pill bg-annuaire-primary">9</span></p>
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.type.id_for_label}}" class="fw-bolder text-primary"> Type de projet</label>
+                        {{form.type}}
+                        <p class="small">{{form.type.help_text}}</p>
+                    </div>
+                    {% if form.type.errors %}
+                        {% for error in form.type.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+    
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.produits.id_for_label}}" class="fw-bolder text-primary"> Vos Produits et/ou Servces</label>
+                        {{form.produits}}
+                        <p class="small">{{form.produits.help_text}}</p>
+                    </div>
+                    {% if form.produits.errors %}
+                        {% for error in form.produits.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.objectifs.id_for_label}}" class="fw-bolder text-primary"> Vos objectifs</label>
+                        {{form.objectifs}}
+                        <p class="small">{{form.objectifs.help_text}}</p>
+                    </div>
+                    {% if form.objectifs.errors %}
+                        {% for error in form.objectifs.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.objectifs_pdf.id_for_label}}" class="fw-bolder text-primary"> Vos objectifs en format pdf</label>
+                        {{form.objectifs_pdf}}
+                        <p class="small">{{form.objectifs_pdf.help_text}}</p>
+                    </div>
+                    {% if form.objectifs.errors %}
+                        {% for error in form.objectifs_pdf.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.clientele.id_for_label}}" class="fw-bolder text-primary"> Persona de la clientèle</label>
+                        {{form.clientele}}
+                        <p class="small">{{form.clientele.help_text}}</p>
+                    </div>
+                    {% if form.clientele.errors %}
+                        {% for error in form.clientele.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.clientele_pdf.id_for_label}}" class="fw-bolder text-primary"> Persona de la clientèle (pdf) </label>
+                        {{form.clientele_pdf}}
+                        <p class="small">{{form.clientele_pdf.help_text}}</p>
+                    </div>
+                    {% if form.clientele_pdf.errors %}
+                        {% for error in form.clientele_pdf.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.description.id_for_label}}" class="fw-bolder text-primary"> Decription de l'application</label>
+                        {{form.description}}
+                        <p class="small">{{form.description.help_text}}</p>
+                    </div>
+                    {% if form.description.errors %}
+                        {% for error in form.description.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.description_pdf.id_for_label}}" class="fw-bolder text-primary"> Description de l'application (pdf) </label>
+                        {{form.description_pdf}}
+                        <p class="small">{{form.description_pdf.help_text}}</p>
+                    </div>
+                    {% if form.description_pdf.errors %}
+                        {% for error in form.description_pdf.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.date_butoire.id_for_label}}" class="fw-bolder text-primary"> Date butoire du projet</label>
+                        {{form.date_butoire}}
+                        <p class="small">{{form.date_butoire.help_text}}</p>
+                    </div>
+                    {% if form.date_butoire.errors %}
+                        {% for error in form.date_butoire.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+    
+                </div>
+                <div class="d-flex justify-content-evenly my-1">
+                    <a class="btn btn-warning mx-1" href="#section1"> Section <span class="badge bg-white text-dark">1</span></a>
+                    <a class="btn btn-annuaire-primary me-1" href="#section2"> Section <span class="badge bg-white text-dark">2</span></a>
+                    <a class="btn btn-yume-primary me-1" href="#section3"> Section <span class="badge bg-white text-dark">3</span></a>
+                    <a class="btn btn-success me-1" href="#section4"> Section <span class="badge bg-white text-dark">4</span></a>
+
+                </div>
+                <div id="section3" class="border p-2 border-2  border-primary my-2">
+                    
+                    <h2 class="titre fs-2 text-center">Eléments graphiques</h2>
+                    <p>
+                        Ce groupe de questions concerne les éléments graphiques tels que la couleur, l'identité visuelle et autres indicatifs graphiques servant à la conception
+                        de l'UX de l'application.
+                    </p>
+                    <p class="fw-bolder">Nombre de questions: <span class="badge badge-pill bg-primary">5</span></p>
+
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.wireframe_file.id_for_label}}" class="fw-bolder text-primary">Wireframe (Struture de l'application)</label>
+                        {{form.wireframe_file}}
+                        <p class="small">{{form.wireframe_file.help_text}}</p>
+                    </div>
+                    {% if form.wireframe_file.errors %}
+                        {% for error in form.wireframe_file.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.visualid.id_for_label}}" class="fw-bolder text-primary">Identité Visuelle</label>
+                        {{form.visualid}}
+                        <p class="small">{{form.visualid.help_text}}</p>
+                    </div>
+                    {% if form.visualid.errors %}
+                        {% for error in form.visualid.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.reference.id_for_label}}" class="fw-bolder text-primary">Applications de référence</label>
+                        {{form.reference}}
+                        <p class="small">{{form.reference.help_text}}</p>
+                    </div>
+                    {% if form.reference.errors %}
+                        {% for error in form.reference.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.logo.id_for_label}}" class="fw-bolder text-primary">Logo</label>
+                        {{form.logo}}
+                        <p class="small">{{form.logo.help_text}}</p>
+                    </div>
+                    {% if form.logo.errors %}
+                        {% for error in form.logo.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.couleurs.id_for_label}}" class="fw-bolder text-primary">Couleur(s)</label>
+                        {{form.couleurs}}
+                        <p class="small">{{form.couleurs.help_text}}</p>
+                        <div id="color-container" class="d-flex justify-content-center align-items-center flex-column">
+                            <input type="color" value="#f3bf16" name="color" id="colorPicker">
+                            <p class="small fw-bolder">Choissez la couleur elle sera automatiquement insérée dans la liste des couleurs</p>
+                        </div>
+                    </div>
+                    {% if form.couleurs.errors %}
+                        {% for error in form.couleurs.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+    
+                </div>
+                <div class="d-flex justify-content-evenly my-1">
+                    <a class="btn btn-warning mx-1" href="#section1"> Section <span class="badge bg-white text-dark">1</span></a>
+                    <a class="btn btn-annuaire-primary me-1" href="#section2"> Section <span class="badge bg-white text-dark">2</span></a>
+                    <a class="btn btn-yume-primary me-1" href="#section3"> Section <span class="badge bg-white text-dark">3</span></a>
+                    <a class="btn btn-success me-1" href="#section4"> Section <span class="badge bg-white text-dark">4</span></a>
+
+                </div>
+                <div id="section4"  class="border p-2 border-2  border-success">
+                    
+                    <h2 class="titre fs-2 text-center">Présentation de l'entreprise et du demandeur</h2>
+                    <p>
+                        Ce groupe de questions concerne les éléments liés à la livraison du projet et à l'utilisation après livraison.
+                    </p>
+                    
+                    <p class="fw-bolder">Nombre de questions: <span class="badge badge-pill bg-success">7</span></p>
+                    
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.texteseo.id_for_label}}" class="fw-bolder text-primary"> Référencement SEO</label>
+                        {{form.texteseo}}
+                        <p class="small">{{form.texteseo.help_text}}</p>
+                    </div>
+                    {% if form.texteseo.errors %}
+                        {% for error in form.texteseo.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.entretien.id_for_label}}" class="fw-bolder text-primary"> Entretien de l'application</label>
+                        {{form.entretien}}
+                        <p class="small">{{form.entretien.help_text}}</p>
+                    </div>
+                    {% if form.entretien.errors %}
+                        {% for error in form.entretien.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.promotion.id_for_label}}" class="fw-bolder text-primary"> Promotion</label>
+                        {{form.promotion}}
+                        <p class="small">{{form.promotion.help_text}}</p>
+                    </div>
+                    {% if form.promotion.errors %}
+                        {% for error in form.promotion.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.keywords.id_for_label}}" class="fw-bolder text-primary"> Mots clés pour le référencement</label>
+                        {{form.keywords}}
+                        <p class="small">{{form.keywords.help_text}}</p>
+                    </div>
+                    {% if form.keywords.errors %}
+                        {% for error in form.keywords.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.paiement.id_for_label}}" class="fw-bolder text-primary"> Moyens de paiements</label>
+                        {{form.paiement}}
+                        <p class="small">{{form.paiement.help_text}}</p>
+                    </div>
+                    {% if form.paiement.errors %}
+                        {% for error in form.paiement.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.appdedie.id_for_label}}" class="fw-bolder text-primary"> Application mobile</label>
+                        {{form.appdedie}}
+                        <p class="small">{{form.appdedie.help_text}}</p>
+                    </div>
+                    {% if form.appdedie.errors %}
+                        {% for error in form.appdedie.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.fiche.id_for_label}}" class="fw-bolder text-primary"> Fiche Produit</label>
+                        {{form.fiche}}
+                        <p class="small">{{form.fiche.help_text}}</p>
+                    </div>
+                    {% if form.fiche.errors %}
+                        {% for error in form.fiche.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+
+
+                    <div class="d-flex flex-column align-items-center  justify-content-center">
+                        <label for="{{form.divers.id_for_label}}" class="fw-bolder text-primary"> Divers</label>
+                        {{form.divers}}
+                        <p class="small">{{form.divers.help_text}}</p>
+                    </div>
+                    {% if form.divers.errors %}
+                        {% for error in form.divers.errors %}
+                            <p class="alert alert-primary small">{{error}}</p>
+                        {% endfor %}
+                    {% endif %}
+                    
+  
+                </div>     
+            </div>
+            {{form.slug}}
+            <div class="d-flex justify-content-center my-3">
+                <input type="submit" value="Enregistrer le formulaire" class="btn btn-primary">
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    let colorPicker=document.getElementById("colorPicker");
+    let colorBox=document.getElementById("id_couleurs")
+    console.log(colorPicker)
+    colorPicker.addEventListener('change',function(){
+        id_couleurs.value+=' '+colorPicker.value
+    })
+</script>
+{% endblock %}

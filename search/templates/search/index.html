@@ -1,0 +1,241 @@
+{% extends 'general/base.html' %}{% load custom %}{% load static %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a title="Lien vers l'accueil" class="text-warning text-decoration-none" href="#">Accueil</a></li>
+{% endblock %}
+
+{% block contenu %}
+<!-- Carousel de la page d'accueil -->
+<div class="row bg-yume-primary">
+    <div class="col-12 mt-2">
+        <div id="Carousel" class="carousel slide" data-bs-ride="carousel" style="max-height: 600px;">
+            <div class="carousel-indicators">
+                {% for carousel in carousels %}
+                <!--debut si-->
+                {% if carousel|index:carousels == 0 %}
+                <button type="button" data-bs-target="#Carousel" data-bs-slide-to="0" class="active ibgcolor" aria-current="true" aria-label="Slide 1"></button>
+                <!--fin if pour attribuer la classe active seulement au premier-->
+                {% else %}
+                <button type="button" data-bs-target="#Carousel" data-bs-slide-to="{{carousel|index:carousels}}" class="ibgcolor" aria-label="Slide {{carousel.id}}"></button>
+                <!--fin du for-->
+                {% endif %} {% endfor%}
+            </div>
+            <div class="carousel-inner h-100 bg-primary rounded">
+                {% for carousel in carousels %}
+                <!--block if pour attribuer la classe active seulement au premier-->
+                {% if carousel|index:carousels == 0 %}
+                <div class="carousel-item active h-100 mb-2" data-bs-interval="10000">
+                    <div class="d-flex justify-content-center bg-primary rounded mb-1" style="height:40px;">
+                        <p class="text-white fs-5">{{carousel.titre}}</p>
+                        </div>
+                    <div class="d-flex  flex-column flex-md-row justify-content-center">
+                        <a target="_blank" rel="nofollow, noreferrer" href="{{carousel.image.url}}">
+                            <img src="{{carousel.image.url}}" class="img-fluid rounded" alt="" style="max-height: 500px;">
+                        </a>
+                        <div class="d-flex flex-column justify-content-center">
+                            <div class="card m-1 h-75">
+                                <div class="card-header text-center border-2 border-bottom border-primary">
+                                    <h5 class="fw-bolder">Détails</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="">{{carousel.texte}}</p>
+                                </div>
+                                <div class="card-footer d-flex justify-content-center border-2 border-top border-primary">
+                                    <a href="{% url carousel.categorie carousel.slug %}" class="btn btn-primary"><i class="bi-search"></i> Plus</a> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="carousel-item mb-2" data-bs-interval="10000">
+                    <div class="d-flex justify-content-center bg-primary rounded mb-1" style="height:40px;">
+                        <p class="text-white fs-5">{{carousel.titre}}</p>
+                    </div>
+                    <div class="d-flex  flex-column flex-md-row justify-content-center">
+                        <a target="_blank" rel="nofollow, noreferrer" href="{{carousel.image.url}}">
+                            <img src="{{carousel.image.url}}" class="img-fluid rounded" alt="" style="max-height: 500px;">
+                        </a>
+                        <div class="d-flex flex-column justify-content-center">
+                            <div class="card m-1 h-75">
+                                <div class="card-header text-center border-2 border-bottom border-primary">
+                                    <h5 class="fw-bolder">Détails</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="">{{carousel.texte}}</p>
+                                </div>
+                                <div class="card-footer d-flex justify-content-center border-2 border-top border-primary">
+                                    <a href="" class="btn btn-primary"><i class="bi-search"></i> Plus</a> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %} {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#Carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#Carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">next</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Ligne de présentation de l'entreprise -->
+<div class="row mt-2 pb-2 border-bottom border-5 border-annuaire-primary">
+    <div class="col-12 text-white px-1 pt-1">
+        <div class="d-flex flex-column flex-md-row justify-content-center align-items-center">
+            <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#Presentation">
+                Présentaion
+            </button>
+            <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#Directeur">
+                Mot du directeur
+            </button>
+        </div>
+        <div class="modal fade text-dark" tabindex="1" id="Presentation" aria-labelledby="PresentationLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                       <img src="{% static 'img/logos/logo.svg'%}" class="img-fluid" width="60px" alt="logo de yume">
+                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="fs-4 text-center"><i class="bi-award-fill slide1"></i> Yume Côte D'ivoire 2022</p>
+                        <p class="text-center fs-5">
+                        {{presentation.contenu}}
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <h5 class="small"> Il ya {{presentation.release_date|timesince}}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade text-dark" tabindex="1" id="Directeur" aria-labelledby="PresentationLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                       <img src="{% static 'img/logos/logo.svg'%}" class="img-fluid" width="60px" alt="logo de yume">
+                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="fs-4 text-center"><i class="bi-award-fill slide1"></i> Yume Côte D'ivoire 2022</p>
+                        <p class="text-center fs-5">
+                        "{{directeur.contenu}}"
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <h5 class="small"> Il ya {{directeur.release_date|timesince}}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ligne de présentation des cartes produits -->
+<div class="row mt-2  border-bottom border-5 border-annuaire-primary">
+    <div class="col-12">
+        <div class="d-flex justify-content-center p-2 mb-4 titre">
+            <h2 class="text-center fs-2 fw-bolder"><i class="bi-basket"></i> Top produits</h2>
+        </div>
+    </div>
+    {% for produit in produits %}
+    <div class="col-12 col-md-6 col-lg-4 mb-2 shadow">
+        <div class="card" style="min-height: 300px;">
+            <div class="card-header alert-annuaire-primary d-flex flex-column justify-content-evenly border-bottom border-1 border-primary">
+                <div class="d-flex justify-content-center border-bottom border-1 border-primary mb-2">
+                    <h3 class="fs-3">{{produit.nom}}</h3>
+                    {% if produit.badge == "ruby" %}
+                    <i class="bi bi-award-fill text-danger fs-4"></i>
+                    {% elif produit.badge == "diamant" %}
+                    <i class="bi bi-award-fill text-annuaire-primary fs-4"></i>
+                    {% elif produit.badge == "or" %}
+                    <i class="bi bi-award-fill text-warning fs-4"></i>
+                    {% elif produit.badge == "argent" %}
+                    <i class="bi bi-award-fill text-dark fs-4"></i>
+                    {% elif produit.badge == "bronze" %}
+                    <i class="bi bi-award-fill text-warning fs-4"></i>
+                    {% endif %}
+                </div>
+                <div class="d-flex justify-content-center flex-column">
+                    <h4 class="text-center fw-bolder lead fst-italic">{{produit.subtitle}}</h4>
+                    <div class="d-flex justify-content-evenly">
+                        <h5 class="text-decoration-line-through fs-4">{{produit.old_price|floatformat}}  {{utiles.currency}}</h5>
+                        <h5 class="fs-4 fw-light">{{produit.price|floatformat}} {{utiles.currency}}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                {% for fonctionalite in produit.get_fonctionalite %}
+                <div class="d-flex justify-content-around pt-2 text-center border-3 mt-2 rounded border-top border-bottom border-annuaire-primary">
+                    <p>{{fonctionalite.nom}}</p>
+                    <p>{{fonctionalite.nombre}}</p>
+                    {% if fonctionalite.inclusion %}
+                        <i class="bi-check-circle-fill text-success"></i>
+                    {% else %}
+                        <i class="bi-x-circle-fill text-danger"></i>  
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="card-footer">
+                Il y a {{produit.date_de_creation|timesince}}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <p class="fs-3">Aucun Produit n'a encore été enregistré</p>
+    </div>
+    {% endfor %}
+    <div class="col-12 d-flex justify-content-center my-2">
+        <a href="{% url 'produits' %}" class="btn btn-primary"> <i class="bi-plus-circle"></i> Voir tous les produits</a>
+    </div>
+</div>
+
+<!-- Ligne de présentation des cartes blog -->
+<div class="row mt-2  border-bottom border-5 border-annuaire-primary">
+    <div class="col-12">
+        <div class="d-flex justify-content-center p-2 mb-4 titre">
+            <h2 class="text-center fs-2 fw-bolder"><i class="bi-newspaper"></i>  Posts de Blog récents</h2>
+        </div>
+    </div>
+    {% for billet in blog %}
+    <div class="col-12 col-md-6 col-lg-4 mb-2 p-2" style="background-image: url('{{billet.image_introduction.url}}');">
+        <div class="card" style="min-height: 300px; background-color: #ffffffbf;">
+            <div class="card-header d-flex justify-content-center flex-column">
+                <h3 class="fs-4">{{billet.titre|safe}}</h3>
+                <hr class="border border-3 border-dark">
+                <h6 class="text-center">{{billet.auteur}}</h6>
+            </div>
+            <div class="card-body">
+                <p>{{billet.introduction|truncatewords:50|safe}}</p>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between">
+                    <p>Il y a {{billet.date_de_creation|timesince}}</p>
+                    <a title="billet de yume avec le titre {{billet.titre}}" href="{% url 'billet' billet.slug %}" class="btn btn-primary"> <i class="bi-book-half"></i> Lire</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <p class="fs-3">Aucun Billet de blog n'a encore été enregistré</p>
+    </div>
+    {% endfor %}
+</div>
+
+<!--seo cheat-->
+<div class="d-none">
+    <p class="text-center fs-5">
+        {{presentation.contenu}}
+     </p>
+</div>
+{% endblock %}
+ 

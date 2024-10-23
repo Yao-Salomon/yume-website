@@ -1,0 +1,505 @@
+{% load static %}{% load custom %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html lang="fr">
+    <head>
+        <!--titre de la page-->
+        <title>{{seo.title|default_if_none:"Yume|Création de produits digitaux"}}</title>
+
+        <!--liste des balises métas seo -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Yume">
+        <meta name="designer" content="Yao Salomon Ange Betsaleel">
+        <meta name="reply-to" content="yume@yume.ci">
+        <meta name="category" content="{{seo.category|default_if_none:'Création de site internet, Création d\'application mobile, Création d\interface utilisateur, UX, UI, Yamoussoukro, Abidjan'}}">
+        <meta name="description" content="{{seo.description|default_if_none:''}}">
+        <meta name="keywords" content="{{seo.keywords|default_if_none:''}}">
+        <meta name="robots" content="{{seo.robots|default_if_none:'all'}}">
+        <meta name="language" content="fr-fr">
+
+        <!--liste des balises métas pour les réseaux sociaux-->
+        <meta property="og:title" content="{{og.title}}">
+        <meta property="og:site-name" content="Yume">
+        <meta property="og:url" content="{{og.url}}">
+        <meta property="og:description" content="{{og.description}}">
+        <meta property="og:type" content="Website">
+        <meta property="og:image" content="{{og.image}}">
+
+        <!--Théme pour appareil mobile-->
+        <meta name="theme-color" content="#ad0002">
+       
+
+        <!--favicon-->
+        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/favicon/favicon_apple_180.png' %}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon/favicon-32.png' %}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon/favicon.png' %}">
+        
+        <!-- feuilles de styles-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+        <link rel="stylesheet" href="{% static 'css/yume.css' %}">
+        <link rel="stylesheet" href="{% static 'css/police.css' %}">
+        <link rel="stylesheet" href="{% static 'img/icons/bootstrap-icons.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bttn.min.css' %}">
+        <link rel="stylesheet" href="{% static 'glide/css/glide.core.min.css' %}">
+        <link rel="stylesheet" href="{% static 'glide/css/glide.theme.min.css'%}">
+        <link rel="stylesheet" href="{% static 'css/loader.css' %}">
+        <!-- Polices-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400&family=Lobster+Two&family=Parisienne&display=swap" rel="stylesheet">
+        
+        <!-- 
+        font-family: 'Jost', sans-serif;
+        font-family: 'Lobster Two', cursive;
+        font-family: 'Parisienne', cursive;
+        -->
+        
+        <!--script necessary to be put up here-->
+        <script src="{% static 'js/scrollreveal.js' %}"></script>
+        <script>
+            ScrollReveal({
+                reset: true
+            });
+        </script>
+
+        <!--json schemas-->
+        {{seo.schema|json_script:"schema"}}
+
+    </head>
+
+    <body class="corps">
+        <div id="yume__chargement" class="container-fluid" style="height: 100vh;">
+            <div class="row bg-primary h-100">
+                
+                <div class="col-12 h-100 d-flex justify-content-center flex-column align-items-center">
+                    <div class="d-flex flex-column justify-content-center flex-column align-items-center">
+                        <img style="width:100px ;" src="{% static 'img/logos/logo_sombre.svg' %}" alt="Logo yume Côte d'Ivoire">
+                        <p class="text-white text-center lead">{{utilitaires.slogan|title}}</p>
+                    </div>
+                    <div class="d-flex">
+                        <div class="lds-grid lds-roller lds-ripple"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div id="yume__page" class="container-fluid">
+            
+            <!-- Première ligne prenant en compte le carousel et la barre de recherche-->
+            <div class="row bg-yume-primary pb-3">
+                <div class="col-12 mb-2" >
+                    <div class="text-center rounded pt-3">
+                        <p class="small text-white">{{random_banner.message}}</p>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a href="{% url 'home' %}" title="logo de yume côte d'ivoire"><img title="logo" src="{% static 'img/logos/logo_sombre.svg'%}" class="img-fluid" style="width: 70px;" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="fixed-bottom d-flex flex-column px-2 py-4 rounded border-top border-3 border-primary" style="background-color:#ffffff;">
+                        <h1 title="{{utilitaires.slogan_reduit}}" class="d-inline d-sm-none fs-5 text-center">
+                            {{utilitaires.slogan_reduit|title}}
+                        </h1>
+                        <h1 title="{{utilitaires.slogan}}" class="d-none d-sm-inline fs-5 text-center">
+                            {{utilitaires.slogan|title}}
+                        </h1>
+                        <div class="d-flex justify-content-center">
+                            <button title="Menu Yume" class="btn btn-primary mx-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#Sidebar" aria-controls="sidebar">
+                                <i class="bi-justify"></i><span class="d-none d-sm-inline">Menu</span>
+                            </button>
+                            <a title="Blog Yume Côte d'Ivoire" href="{% url 'annuaire'%}" class="btn btn-annuaire-primary">Annuaire</a>
+                            <a title="Contacts Yume Abidjan" href="{% url 'contacts' %}" class="mx-1 btn btn-annuaire-primary animate__animated animate__swing animate__repeat-2"><i class="bi-telephone"></i> <span class="d-none d-sm-inline">Contactez-nous</span></a>
+                            
+                            <div class="dropdown">
+                                <a title="Comptes Yume" class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {% if user.is_authenticated %}
+                                    <i class="bi-person-badge"></i> 
+                                    <span class="d-none d-sm-inline">{{user.first_name}}</span>
+                                    {% else %}
+                                    <i class="bi-person-circle"></i> 
+                                    <span class="d-none d-sm-inline">Comptes</span>
+                                    {% endif %}
+                                    
+                                </a>
+                                <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
+                                    {% if user.is_authenticated %}
+                                        {% if user.is_superuser %}
+                                        <li><a class="dropdown-item" href="{% url 'admin' user.slug %}"> <i class="bi-person-check text-danger"></i> Profile</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        {% else %}
+                                        <li><a class="dropdown-item" href="{% url 'profile' user.slug %}"> <i class="bi-person-check text-danger"></i> Profile</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        {% endif %}
+                                    <li><a class="dropdown-item" href="{% url 'deconnexion'%}"> <i class="bi-person-x text-danger"></i> Déconnexion</a></li>
+                                    {% else %}
+                                    <li><a class="dropdown-item" href="{% url 'inscription' %}"> <i class="bi-person-check text-danger"></i> Inscription</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{% url 'connexion' %}?next={{next}}"> <i class="bi-person-plus text-danger"></i> Connexion</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="offcanvas offcanvas-start" data-bs-backdrop="true" tabindex="-1" id="Sidebar"  aria-labelledby="Sidebar">
+                            <div class="offcanvas-header">
+                                <a title="logo de yume" href="{% url 'home' %}" class="offcanvas-title" id="SidebarTitle"><img class="img-fluid" style="width:70px;" src="{% static 'img/logos/logo.svg' %}" alt="logo de yume"></a>
+                                
+                                <a title="bouton de fermeture panel yume" class="btn btn-yume-primary" data-bs-dismiss="offcanvas" aria-label="Close"><i class="bi-x-circle"></i></a>
+                            </div>
+                            <div class="offcanvas-body">
+                                <div class="d-flex justify-content-center flex-column align-items-center">
+                                    <div class="w-75 p-3 rounded-3 d-flex flex-column justify-content-center">
+                                        <a title="Page d'Accueil du site Yume Côte D'ivoire" class="text-decoration-none   m-1" href="{% url 'home' %}"><i class="bi-house-fill me-1"></i> Accueil</a>
+                                        <a title="Annuaire Yamoussoukro" class="text-decoration-none   m-1" href="{% url 'annuaire' %}"><i class="bi-collection-fill me-1"></i> Annuaire</a>
+                                        <a title="Blog de Yume Yamoussoukro" class="text-decoration-none   m-1" href="{% url 'blog' %}"><i class="bi-newspaper me-1"></i> Blog</a>
+                                        <a title="Formulaires Yume" class="text-decoration-none   m-1" href="{% url 'formulaires' %}"><i class="bi-card-list me-1"></i> Formulaires</a>
+                                        <a title="Dictionnaire de Yume" class="text-decoration-none   m-1" href="{% url 'dictionnaire' %}"><i class="bi-bookmark-heart-fill me-1"></i> Dictionnaire</a>
+                                        <a title="Bibliothèque de Yume" class="text-decoration-none   m-1" href="{% url 'about' %}"><i class="bi-book me-1"></i> Bibliothèque</a>
+                                        <a title="A propos de nous" class="text-decoration-none   m-1" href="{% url 'about' %}"><i class="bi-people-fill"></i> A propos de nous</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-1 d-flex flex-column justify-content-center align-items-center">
+                    <div class="mb-5 d-none">
+                        <h1 class="text-light display-4">Donnez vous le droit de rêvez</h1>
+                    </div>
+                    <div class="d-none d-md-flex w-100 justify-content-center">
+                        <form action="" class="w-75">
+                            <input class="form-control rounded-pill" type="search" name="" placeholder="{{utilitaires.titre_barre_de_recherche}}" id="search_md">
+                        </form>
+                    </div>
+                    <div class="d-flex d-md-none w-100 justify-content-center flex-column">
+                        <form action="" class="w-100">
+                            <input class="form-control rounded-pill" type="search" name="search" placeholder="rechercher sur Yume" id="search_sm" autocomplete="false">
+                        </form>
+                    </div>
+                </div>
+                <div class="col-12 p-2">
+                    <div class="d-flex flex-wrap flex-column flex-lg-row justify-content-center" id="texte">
+
+                    </div>
+                </div>
+            </div>            
+            <!-- breadcrumb-->
+            <div class="row bg-yume-primary my-0">
+                <div class="col-12">
+                    <div class="d-flex justify-content-center">
+                        <div class="text-white">
+                            <p class="sm me-1">Vous êtes ici:</p>
+                        </div>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                            {% block breadcrumb %}
+                            <li class="breadcrumb-item"><a title="Lien vers l'accueil" class="text-white text-decoration-none" href="{% url 'home' %}"> Base Html</a></li>
+                            {% endblock %}
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!-- Messages-->
+            {% if messages %}        
+            <div class="row">
+                <div class="col-12 mt-2">   
+                    {% for message in messages %}
+                        {% if message.tags == 'error' %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <p>{{message}}</p>
+                            <button title="fermeture du message d'alerte" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>                        
+                        {% elif message.tags == 'success' %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{{message}}</strong>
+                            <button title="fermeture du message d'alerte" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% elif message.tags == 'warning' %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>{{message}}</strong>
+                            <button title="fermeture du message d'alerte" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% elif message.tags == 'debug' %}
+                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                            <strong>{{message}}</strong>
+                            <button title="fermeture du message d'alerte" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% elif message.tags == 'info' %}
+                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                            <strong>{{message}}</strong>
+                            <button title="fermeture du message d'alerte" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endif %}
+                    {% endfor %}   
+                </div>
+            </div>
+            {% endif %}
+
+            {% block contenu %}
+            <p class="alert alert-primary"> Block initial </p>
+            {% endblock %}
+
+            <!-- Valeurs -->
+            <div class="row my-2">
+               
+                <div class="col-12">
+                    <div class="d-flex justify-content-center p-2 mb-4 titre">
+                        <h2 class="text-center fs-2 fw-bolder"><i class="bi-compass fs-3"></i> Nos Valeurs</i></h2>
+                    </div>
+                </div>
+                
+                <div class="col-12">
+                    <div class="glide bg-dark" style="height: 450px;" >
+                        <div class="glide__track h-100" data-glide-el="track">
+                            <div class="glide__slides h-100 d-flex align-items-center">
+                                {% for valeur in valeurs %}
+                                <div class=" h-75 glide__slide rounded p-2" style="background-image: url({{valeur.image.url}});background-repeat: no-repeat; background-size: cover;">
+                                    <div class="h-100 d-flex text-dark flex-column justify-content-center align-items-center" style="background-color: #ffffffbf;">
+                                        <div class="text-primary mb-1">
+                                            <h4 class="text-center fw-bolder"><i class="bi-{{valeur.icon}} fs-4 my-1"></i> {{valeur.titre}}</h4>
+                                        </div>
+                                        <div class="px-2">
+                                            <p class="text-center fs-5"> {{valeur.texte}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% empty%}
+
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="glide__bullets bg-dark p-1 rounded" data-glide-el="controls[nav]">
+                            {% for valeur in valeurs %}
+                            <button title="contrôle du carousel des valeurs de yume" class="glide__bullet" data-glide-dir="={{valeur|index:valeurs}}"></button>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="row my-2 pb-2 border-bottom border-5 border-annuaire-primary">
+                <!-- Sitemap -->
+                <div class="col-12">
+                    <div class="d-flex justify-content-center">
+                        <a target="_blank" rel="noopener noreferrer" class="btn btn-dark" title="sitemap de yume côte d'ivoire" href="{% url 'django.contrib.sitemaps.views.sitemap'%}">Voir le sitemap</a>
+                    </div>
+                </div>
+                <!-- Classic Website footer -->
+            </div>
+            <footer>
+                <div class="row">
+    
+                    <div class="col-6 col-md-4" >
+                        
+                        <div class="d-flex justify-content-center flex-column">
+                            <a title=" footer title for web creation" class="btn btn-outline-primary" href="#ft">Services</a> 
+                        
+                            <ul class="d-flex flex-column justify-content-center" style="list-style: none;">
+                                <li><i class="bi-house-fill my-2"></i> <a class="text-decoration-none" title="sous services pour Yume" href="{% url 'home' %}"> home</a></li>
+                                <li><i class="bi-newspaper my-2"></i> <a class="text-decoration-none" title="sous services pour Yume" href="{% url 'blog' %}"> Blog</a></li>
+                                <li><i class="bi-card-list my-2"></i> <a class="text-decoration-none" title="sous services pour Yume" href="{% url 'formulaires' %}"> Formulaires</a></li>
+                                <li><i class="bi-speaker my-2"></i> <a class="text-decoration-none" title="sous services pour Yume" href="{% url 'about' %}"> A propos</a></li>
+                                <li><i class="bi-book my-2"></i> <a class="text-decoration-none" title="sous services pour Yume" href="{% url 'about' %}"> Bibliothèque</a></li>
+                                <li><i class="bi-newspaper my-2"></i> <a class="text-decoration-none" title="sous services pour Yume" href="{% url 'dictionnaire' %}"> Dictionnaire</a></li>
+                            </ul>
+                        </div>
+                                                                                                                                            
+                    </div>
+    
+                    <div class="col-6 col-md-4" >
+                        <div class="d-flex justify-content-center flex-column">
+                            <a title=" footer title for web creation" class="btn btn-outline-primary" href="#ft">Services</a> 
+                        
+                            <ul class="d-flex flex-column align-items-center" style="list-style: none;">
+                                <li><i class="bi-newspaper my-2"></i> <a class="text-decoration-none" title="sous services pour Yume" href="{% url 'blog' %}"> Blog</a></li>
+                                <li><i class="bi-newspaper my-2"></i> <a class="text-decoration-none" title="sous services pour Yume" href="/pages/creationweb"> Blog</a></li>
+                                <li><i class="bi-newspaper my-2"></i> <a class="text-decoration-none" title="sous services pour Yume" href="/pages/creationweb"> Blog</a></li>
+                                <li><i class="bi-newspaper my-2"></i> <a class="text-decoration-none" title="sous services pour Yume" href="/pages/creationweb"> Blog</a></li>
+                                <li><i class="bi-newspaper my-2"></i> <a class="text-decoration-none" title="sous services pour Yume" href="/pages/creationweb"> Blog</a></li>
+                                <li><i class="bi-newspaper my-2"></i> <a class="text-decoration-none" title="sous services pour Yume" href="/pages/creationweb"> Blog</a></li>
+                            </ul>
+                        </div>
+                                                
+                    </div>
+    
+                    <div class="col-6 col-md-4" >
+                        <div class="d-flex justify-content-center flex-column">
+                            <a title=" footer title for web creation" class="btn btn-outline-primary" href="#ft">Services</a> 
+                        
+                            <ul class="d-flex flex-column align-items-center" style="list-style: none;">
+                                <li><i class="bi-newspaper my-2"></i> <a class="text-decoration-none" title="sous services pour Yume" href="/pages/creationweb"> Blog</a></li>
+                                <li><i class="bi-newspaper my-2"></i> <a class="text-decoration-none" title="sous services pour Yume" href="/pages/creationweb"> Blog</a></li>
+                                <li><i class="bi-newspaper my-2"></i> <a class="text-decoration-none" title="sous services pour Yume" href="/pages/creationweb"> Blog</a></li>
+                                <li><i class="bi-newspaper my-2"></i> <a class="text-decoration-none" title="sous services pour Yume" href="/pages/creationweb"> Blog</a></li>
+                                <li><i class="bi-newspaper my-2"></i> <a class="text-decoration-none" title="sous services pour Yume" href="/pages/creationweb"> Blog</a></li>
+                                <li><i class="bi-newspaper my-2"></i> <a class="text-decoration-none" title="sous services pour Yume" href="/pages/creationweb"> Blog</a></li>
+                            </ul>
+                        </div>
+                                                
+                    </div>
+    
+                    <div class="col-6 d-flex flex-column align-items-center justify-content-center col-md-12 text-center" >
+                        <a href="{% url 'home'%}"> 
+                        <img src="{% static 'img/logos/logo.svg' %}"style="width:100px" alt="">
+                        </a>                  
+                    </div>
+    
+    
+                </div> 
+                    <br/>
+                <div class="row text-center">
+                    <div class="col">
+    
+                        
+                            <a title="lien pour les contacts" class="btn btn-primary btn-lg" data-aos="flip-down" href="https://web.facebook.com/Yume.Web.Agency" target="blank">
+                                <i class="bi bi-facebook"></i>                             
+                            </a>
+                            <a title="lien pour les contacts" class="btn btn-primary btn-lg" data-aos="flip-up" href="https://www.instagram.com/yumewebinfographie" target="blank">
+                                <i class="bi bi-instagram"></i>                             
+                            </a>
+                            <a title="lien pour les contacts" class="btn btn-primary btn-lg" data-aos="flip-up" href="https://www.linkedin.com/in/yumeagency" target="blank">
+                                <i class="bi bi-linkedin"></i>                             
+                            </a>
+                            <a title="lien pour les contacts" class="btn btn-primary btn-lg" data-aos="flip-down" href="mailto:yume@yume.ci">
+                                <i class="bi bi-envelope-fill"></i>                             
+                            </a>
+                            
+                    </div>
+                </div>
+                    <hr/>
+                    <hr/>
+                <div class="row text-center">
+                    <div class="col">
+                        <a class="copyrighted-badge" title="Copyrighted.com Registered &amp; Protected Yume" rel="noopener noreferrer" target="_blank" href="https://www.copyrighted.com/website/PVkUnoZPMiuXsLg9"><img alt="Copyrighted.com Registered &amp; Protected" width="125" height="25" srcset="https://static.copyrighted.com/badges/125x25/05_1_2x.png 2x" src="https://static.copyrighted.com/badges/125x25/05_1.png" /></a>
+                    </div>  
+                </div>
+                    <hr/>
+                    <hr/>
+            </footer>
+
+            <!-- Copyright -->
+            <div class="row">
+                <div class="col-12 p-2 pt-3">
+                    <p class="text-center small fw-bolder">
+                        Copyright yume Côte d'Ivoire 2022.
+                        <br>
+                        Yume SARL
+                    </p>
+                </div>
+            </div>
+            
+
+            <!--  Mise en place du décorateur de fond du fixed-bottom -->
+            <div class="row" style="height: 110px;">
+                <div class="col-12 my-2">
+                </div>
+            </div>
+
+        </div>
+
+        <!-- block de résumé seo -->
+        <div class="d-none">
+            <ul>
+                <h1>Yume|Agence de création de site Web</h1>
+                <li>Yume est une agence web de création de site internet</li>
+                <li>Yume est une agence web de conception de site internet</li>
+                <li>Yume est une agence web de webmastering</li>
+
+                <h2>Yume |Agence de création de site Web en Côte d'Ivoire</h2>
+                <li>Yume est une agence web de création de site internet Côte D'Ivoire</li>
+                <li>Yume est une agence web de conception de site internet Côte D'ivoire</li>
+                <li>Yume est une agence web de webmastering Côte D'ivoire</li>
+
+                <h3>Yume|Agence de Webmastering</h3>
+                <li>Yume est une agence web de création de site internet</li>
+                <li>Yume est une agence web de conception de site internet</li>
+                <li>Yume est une agence web de webmastering</li>
+            </ul>
+        </div>
+
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'glide/glide.min.js' %}"></script>
+        <script src="{% static 'js/custom.js' %}"></script>
+        <script src="{% static 'js/yume_ajax.js' %}"></script>
+
+       <script>
+           //test
+           var tags=document.getElementsByTagName('p');
+           let termes=[];
+           
+           function slugify(word){
+                let word_factory=[];
+                let words=[];
+                let specials=/[@#&~\\()|^$¨£*%µ!:;,§°+<>²`?."'}{\[\]}]/
+                word=word.toLowerCase();
+                words_factory=word.split(' ');
+                words_factory=words_factory.join('-');
+                words_factory=words_factory.split(specials);
+                words_factory=words_factory.join('');
+                words_factory=words_factory.split(/[éèëê]/);
+                words_factory=words_factory.join('e');
+                words_factory=words_factory.split(/[àâä]/);
+                words_factory=words_factory.join('a');
+                words_factory=words_factory.split(/[ô]/);
+                words_factory=words_factory.join('o');
+                words_factory=words_factory.split(/[î]/);
+                words_factory=words_factory.join('i');
+                words_factory=words_factory.split(/[ùû]/);
+                words_factory=words_factory.join('u');
+                words_factory=words_factory.split('-');
+
+                words_factory=words_factory.filter((element)=>{
+                    return element.length!=0;
+                })              
+                word=words_factory.join('-')
+                return word;
+            }
+
+           // {% for terme in termes %}
+            termes.push("{{terme}}");
+           // {% endfor %}
+           for (tag in tags){
+               if (tags[tag].innerText){
+                   for(terme in termes){
+                    let regexe=new RegExp('\\s+('+termes[terme]+')\\s+','i')
+                    let mot=termes[terme]
+                    tags[tag].innerHTML=tags[tag].innerHTML.replace(regexe,'<a target="_blank" rel="noopener noreferrer" href="/dictionnaire/'+slugify(termes[terme])+'" class="card-link text-warning fw-bolder"> $1 </a>')
+                   }
+                   
+               }
+           }
+           
+           //paramétrage de glidejs
+           /*
+            var glide = new Glide('.glide', {
+                type:'carousel',
+                perView:1,
+                gap:20,
+                autoplay:4000,
+                animationTimingFunc:'ease-in-out',
+                peek:{before:40,after:50}
+            })
+            glide.mount()*/
+            
+            //chargement de la page
+            yume__page=document.getElementById("yume__page")
+            yume__chargement=document.getElementById("yume__chargement")
+           
+            window.addEventListener('load',function(){
+                yume__page.setAttribute('class',' container-fluid ')
+                yume__chargement.parentNode.removeChild(yume__chargement);
+            },false)            
+        </script>
+    </body>
+</html>

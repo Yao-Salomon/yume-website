@@ -1,0 +1,51 @@
+{% extends 'general/base.html'%}{% load static %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item sm me-1"><a title="Lien vers l'accueil" class="text-white text-decoration-none" href="{% url 'home'%}">Accueil</a></li>
+<li class="breadcrumb-item sm me-1 active" aria-current="page"><a title="Lien vers l'accueil" class="text-warning text-decoration-none" href="{% url 'annuaire' %}">Annuaire</a></li>
+{% endblock %} 
+ 
+{% block contenu %}
+<div class="row mt-2">
+    {% for client in clients %}
+    <div class="col-12 col-md-6 col-lg-4 mb-1 p-2">
+        <div class="card" style="min-height: 300px; background-color: #ffffffbf;">
+            <div class=" card-header d-flex flex-column justify-content-center align-items-center mb-3">
+                <h1 class="text-center fs-2 fw-bolder titre">{{client.nom_du_profil}}</h1>
+            </div>
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                {% if client.photo %}
+                <img class="img-fluid bg-dark rounded-pill" src="{{client.photo.url}}" style="width: 150px; height: 150px;" alt="">
+                {% else %}
+                <img class="img-fluid bg-dark rounded-pill" src="{% static 'img/logos/logo_sombre.svg' %}" style="width: 150px; height: 150px;" alt="Photo de profil du client {{client.nom_du_profil}}">
+                {% endif %}
+            </div>
+            <div class="card-header d-flex flex-column justify-content-evenly">
+                <h6 class="text-center text-primary fw-bolder">{{client.siteweb}}</h6>
+            </div>
+            <div class="card-body">
+                <p>{{client.about|truncatewords:50|safe}}</p>
+            </div>
+            <div class="d-flex flex-column m-2">
+                <h2  class="fs-3 titre">Activités</h2>
+                {% for activite in client.get_activite %}
+                    <p> <i class="bi-{{activite.icone}} text-primary"></i> {{activite.nom}}</p>
+                {% empty %}
+                    <p>Aucune Activité encore enregistré </p>
+                {% endfor %}
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between">
+                    <p class="small">Inscrit Il ya :{{client.date_joined|timesince}}</p>
+                    <a title="client de yume avec le titre {{client.titre}}" href="{% url 'profile' client.slug %}" class="btn btn-primary"> <i class="bi-book-half"></i> Lire</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <p class="fs-3">Aucun client de clients n'a encore été enregistré</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

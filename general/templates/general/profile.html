@@ -1,0 +1,100 @@
+{% extends 'general/base.html'%}{% load static %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item sm me-1"><a title="Lien vers l'accueil" class="text-white text-decoration-none" href="{% url 'home'%}">Accueil</a></li>
+<li class="breadcrumb-item sm me-1"><a title="Lien vers la page de connexion" class="text-white text-decoration-none" href="{% url 'connexion'%}">Comptes</a></li>
+<li class="breadcrumb-item sm me-1 active" aria-current="page"><a title="Lien vers la page de {{client.nom_du_profil}}" class="text-warning text-decoration-none" href="{% url 'profile' client.slug %}">{{client.username}}</a></li>
+{% endblock %} 
+
+{% block contenu %}
+<div class="row">
+    <div class="col-12 m-2">
+        {% if messages %}
+            <!--boucle sur les erreurs-->
+            {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Votre compte a bien été mis à jour</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %} 
+        {% endif %}
+    </div>
+    <div class="col-12 col-md-3 rounded-3 border border-1 border-primary p-1">
+        <div class="d-flex flex-column justify-content-center align-items-center mb-3">
+            <h1 class="text-center fs-2 fw-bolder titre">{{client.nom_du_profil}}</h1>
+            
+            {% if profile_owner %}
+            <a title="Création d'une nouvelle photo de profile" href="{% url 'update' client.slug %}" class="btn btn-primary mt-1"> Mettez votre profile à jour <i class="bi-pencil"></i></a>
+            {% endif %}
+        </div>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            {% if client.photo %}
+            <img class="img-fluid bg-dark rounded-pill" src="{{client.photo.url}}" style="width: 150px; height: 150px;" alt="">
+            {% else %}
+            <img class="img-fluid bg-dark rounded-pill" src="{% static 'img/logos/logo_sombre.svg' %}" style="width: 150px; height: 150px;" alt="Photo de profil du client {{client.nom_du_profil}}">
+            {% endif %}
+        </div>
+        <div class="mt-2 p-2">
+            <div>
+                <h2>email</h2>
+                <p>{{client.email}}</p>
+            </div>
+            <div>
+                <h2>numéro</h2>
+                <p>{{client.numero}}</p>
+            </div>
+            <div>
+                <h2>site web</h2>
+                <p>{{client.siteweb}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 p-2">
+        <div class="d-flex w-100  flex-column justify-content-center">
+            <div class="d-flex flex-column p-2 justify-content-center align-items-center">
+                <h2 class="fs-3 titre">Pannel d'Actions</h2>
+                <div class="d-flex flex-column flex-md-row p-2 justify-content-center align-items-center">
+                    <a href="" class="btn btn-dark m-1">Créer un formulaire</a>
+                    <a href="" class="btn btn-annuaire-primary m-1">Blog</a>
+                    <a href="" class="btn btn-primary m-1">Boîte à outils</a>
+                </div>
+            </div>
+            <div class="d-flex flex-column w-100 justify-content-center">
+                <h2 class="fs-3 titre">Vos formulaires</h2>
+                <div class="w-100 bg-light rounded d-flex flex-wrap flex-column flex-md-row justify-content-center align-items-center">
+    
+                    {% for formulaire in formulaires %}
+                        <div class="card m-1 bg-dark text-white" style="width: 200px;">
+                            <div class="card-header">
+                                {{formulaire.username}}
+                            </div>
+                            <div class="card-body">
+                                {{formulaire.objectifs|truncatewords:50|default:"Aucun détail n'est disponible pour ce formulaire"}}
+                            </div>
+                            <div class="card-footer">
+                                <a class="btn btn-primary" href="{% url 'ecommerce_update' formulaire.id %}" title="mise à jour du formulaire">Modifier</a>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p>Aucun formulaire encore enregistré </p>
+                    {% endfor %}
+    
+                </div>
+            </div>
+            <div>
+                <h2 class="fs-3 titre">Description</h2>
+                <p>{{client.about}}</p>
+            </div>
+            <div>
+                <h2  class="fs-3 titre">Activités</h2>
+                {% for activite in client.get_activite %}
+                <p> <i class="bi-{{activite.icone}} text-primary"></i> {{activite.nom}}</p>
+                {% empty %}
+                <p>Aucune Activité encore enregistré </p>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends 'general/base.html' %}{% load custom %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item sm me-1"><a title="Lien vers l'accueil" class="text-white text-decoration-none" href="{% url 'home'%}">Accueil</a></li>
+<li class="breadcrumb-item sm me-1 active" aria-current="page"><a title="A propos de Yume Côte D'ivoire" class="text-warning text-decoration-none" href="#">A propos</a></li>
+{% endblock %}
+
+{% block contenu %}
+<div class="row">
+    <div class="col-12 d-flex flex-column align-items-center justify-content-center my-2">
+        <h1 class="fs-3 titre fw-bolder text-annuaire-primary">
+            <i class="bi-hash"></i> Mot du directeur
+        </h1>
+        <div class="d-flex d-md-none">
+            <p class="mx-3 text-center fw-bolder" >
+                {{directeur.contenu}}
+            </p>
+        </div>
+        <div class="d-none d-md-flex text-center fw-bolder">
+            <p class="mx-5 px-5" >
+                {{directeur.contenu}}
+            </p>
+        </div>
+        <div class="">
+            <h6 class="small">{{directeur.release_date}}</h6>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-12 d-flex flex-column align-items-center justify-content-center my-2">
+        <h1 class="fs-3 titre fw-bolder text-annuaire-primary">
+            <i class="bi-hash"></i> Présentation
+        </h1>
+        <div class="d-flex d-md-none">
+            <p class="mx-3" style="text-align:justify ;">
+                {{presentation.contenu}}
+            </p>
+        </div>
+        <div class="d-none d-md-flex">
+            <p class="mx-5 px-5"  style="text-align:justify ;">
+                {{presentation.contenu}}
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-12 d-flex flex-column align-items-center justify-content-center my-2">
+        <h1 class="fs-3 titre fw-bolder text-annuaire-primary">
+            <i class="bi-hash"></i> Témoignages
+        </h1>
+    </div>
+    <div class="col-12">
+        <div id="Carousel" class="carousel slide" data-bs-ride="carousel" style="max-height: 600px;">
+            <div class="carousel-indicators">
+                {% for carousel in carousels %}
+                <!--debut si-->
+                {% if carousel|index:carousels == 0 %}
+                <button type="button" data-bs-target="#Carousel" data-bs-slide-to="0" class="active ibgcolor" aria-current="true" aria-label="Slide 1"></button>
+                <!--fin if pour attribuer la classe active seulement au premier-->
+                {% else %}
+                <button type="button" data-bs-target="#Carousel" data-bs-slide-to="{{carousel|index:carousels}}" class="ibgcolor" aria-label="Slide {{carousel.id}}"></button>
+                <!--fin du for-->
+                {% endif %} {% endfor%}
+            </div>
+            <div class="carousel-inner h-100 bg-primary rounded">
+                {% for carousel in carousels %}
+                <!--block if pour attribuer la classe active seulement au premier-->
+                {% if carousel|index:carousels == 0 %}
+                <div class="carousel-item active h-100 mb-2" data-bs-interval="10000">
+                    <div class="d-flex justify-content-center bg-primary rounded my-2" style="height:40px;">
+                        <h1 class="text-white fs-5"><i class="bi-speaker"></i>{{carousel.nom}}</h1>
+                        </div>
+                    <div class="d-flex  flex-column flex-md-row justify-content-center">
+                        <div class="d-flex flex-column justify-content-center">
+                            <div class="card m-1 h-75">
+                                <div class="card-header text-center border-2 border-bottom border-primary">
+                                    <h5 class="fw-bolder"><i class="bi-speaker"></i>{{carousel.organisation}}</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="">{{carousel.contenu}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="carousel-item h-100 mb-2" data-bs-interval="10000">
+                    <div class="d-flex justify-content-center bg-primary rounded my-2" style="height:40px;">
+                        <p class="text-white fs-5"><i class="bi-speaker"></i> {{carousel.nom}}</p>
+                        </div>
+                    <div class="d-flex  flex-column flex-md-row justify-content-center">
+                        <div class="d-flex flex-column justify-content-center">
+                            <div class="card m-1 h-75">
+                                <div class="card-header text-center border-2 border-bottom border-primary">
+                                    <h5 class="fw-bolder"> <i class="bi-speaker"></i>{{carousel.organisation|truncatewords:100}}</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="">{{carousel.contenu}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %} {% endfor %}
+            </div>
+            <button title="bouton de contrôle du carousel" class="carousel-control-prev" type="button" data-bs-target="#Carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">précédent</span>
+            </button>
+            <button title="bouton de contrôle du carousel" class="carousel-control-next" type="button" data-bs-target="#Carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">suivant</span>
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}

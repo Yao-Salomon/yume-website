@@ -1,0 +1,148 @@
+{% extends 'general/base.html'%}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item sm me-1"><a title="Lien vers l'accueil" class="text-white text-decoration-none" href="{% url 'home'%}">Accueil</a></li>
+<li class="breadcrumb-item sm me-1"><a title="Lien vers la page de connexion" class="text-white text-decoration-none" href="{% url 'connexion'%}">Comptes</a></li>
+<li class="breadcrumb-item sm me-1"><a title="Lien vers la page de connexion" class="text-white text-decoration-none" href="{% url 'profile' client.slug %}">{{client.username}}</a></li>
+<li class="breadcrumb-item sm me-1 active" aria-current="page"><a title="Lien vers la page de {{client.nom_du_profil}}" class="text-warning text-decoration-none" href="{% url 'profile' client.slug %}">Mise à jour du profil</a></li>
+{% endblock %} 
+
+{% block contenu %}
+<div class="row">
+    <div class=" col-md-3">
+
+    </div>
+    <div class="col-12 col-md-6 my-5">
+        <form enctype="multipart/form-data" class="p-2 border border-primary border-1" method="post" novalidate>
+            {% csrf_token %}
+            {% if messages %}
+            <!--boucle sur les erreurs-->
+            {% for message in messages %}
+            <p class="alert alert-warning text-center small">{{ message }}</p>
+            {% endfor %} 
+            {% endif %}
+            {% if form.errors %}
+                {% for error in form.errors %}
+                    <p class="alert alert-primary small"> Une erreur est survenue sur le champ:{{error}}</p>
+                {% endfor %}
+            {% endif %}
+            <div class="d-flex justify-content-around align-items-around flex-column">
+                <div class="d-flex flex-column align-items-center  justify-content-center">
+                    <label for="{{form.nom_du_profil.id_for_label}}" class="fw-bolder text-primary">Nom du profil</label>
+                    {{form.nom_du_profil}}
+                    <p class="small">{{form.nom_du_profil.help_text}}</p>
+                </div>
+                {% if form.nom_du_profil.errors %}
+                    {% for error in form.nom_du_profil.errors %}
+                        <p class="alert alert-primary small">{{error}}</p>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="d-flex flex-column align-items-center  justify-content-center">
+                    <label for="{{form.first_name.id_for_label}}" class="fw-bolder text-primary">Nom de famille</label>
+                    {{form.first_name}}
+                    <p class="small">{{form.first_name.help_text}}</p>
+                </div>
+                {% if form.first_name.errors %}
+                    {% for error in form.first_name.errors %}
+                        <p class="alert alert-primary small">{{error}}</p>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="d-flex flex-column align-items-center  justify-content-center">
+                    <label for="{{form.last_name.id_for_label}}" class="fw-bolder text-primary">Prénoms</label>
+                    {{form.last_name}}
+                    <p class="small">{{form.last_name.help_text}}</p>
+                </div>
+                {% if form.last_name.errors %}
+                    {% for error in form.last_name.errors %}
+                        <p class="alert alert-primary small">{{error}}</p>
+                    {% endfor %}
+                {% endif %}
+    
+    
+                <div class="d-flex flex-column align-items-center  justify-content-center">
+                    <label for="{{form.email.id_for_label}}" class="fw-bolder text-primary">Email</label>
+                    {{form.email}}
+                    <p class="small">{{form.email.help_text}}</p>
+                </div>
+
+                <div class="d-flex flex-column align-items-center  justify-content-center">
+                    <label for="{{form.numero.id_for_label}}" class="fw-bolder text-primary"> Numéro(s)</label>
+                    {{form.numero}}
+                    <p class="small">{{form.numero.help_text}}</p>
+                </div>
+                {% if form.numero.errors %}
+                    {% for error in form.numero.errors %}
+                        <p class="alert alert-primary small">{{error}}</p>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="d-flex flex-column align-items-center  justify-content-center">
+                    <label for="{{form.about.id_for_label}}" class="fw-bolder text-primary"> A propos</label>
+                    {{form.about}}
+                    <p class="small">{{form.about.help_text}}</p>
+                </div>
+                {% if form.about.errors %}
+                    {% for error in form.about.errors %}
+                        <p class="alert alert-primary small">{{error}}</p>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="d-flex flex-column align-items-center  justify-content-center">
+                    <label for="{{form.photo.id_for_label}}" class="fw-bolder text-primary"> Photo de profil</label>
+                    {{form.photo}}
+                    <p class="small">{{form.photo.help_text}}</p>
+                    
+                    {% if client.photo %}
+                    <p class="small fw-bolder text-primary">Ancienne image de profil</p>
+                    <p class="small"><span class="fw-bolder text-primary">Nom de la photo: </span>{{client.photo.name}}</p>
+                    <img class="img-fluid bg-dark rounded-pill" src="{{client.photo.url}}" style="width: 70px; height: 70px;" alt="Photo de profil du client {{client.nom_du_profil}}">
+                    {% endif %}
+                </div>
+                {% if form.photo.errors %}
+                    {% for error in form.photo.errors %}
+                        <p class="alert alert-primary small">{{error}}</p>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="d-flex flex-column align-items-center  justify-content-center">
+                    <label for="{{form.siteweb.id_for_label}}" class="fw-bolder text-primary"> Url de votre site </label>
+                    {{form.siteweb}}
+                    <p class="small">{{form.siteweb.help_text}}</p>
+                </div>
+                {% if form.siteweb.errors %}
+                    {% for error in form.siteweb.errors %}
+                        <p class="alert alert-primary small">{{error}}</p>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="d-flex flex-column align-items-center  justify-content-center">
+                    <label for="{{form.activite.id_for_label}}" class="fw-bolder text-primary"> Activité(s)</label>
+                    {{form.activite}}
+                    <p class="small">{{form.activite.help_text}}</p>
+                </div>
+                {% if form.activite.errors %}
+                    {% for error in form.activite.errors %}
+                        <p class="alert alert-primary small">{{error}}</p>
+                    {% endfor %}
+                {% endif %}
+                <div class="d-flex flex-column align-items-center  justify-content-center">
+                    <label for="{{form.adresse.id_for_label}}" class="fw-bolder text-primary"> Adresse</label>
+                    {{form.adresse}}
+                    <p class="small">{{form.adresse.help_text}}</p>
+                </div>
+                {% if form.adresse.errors %}
+                    {% for error in form.adresse.errors %}
+                        <p class="alert alert-primary small">{{error}}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+           
+            <div class="d-flex justify-content-center">
+                <input type="submit" value="Mettre le profile à jour" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

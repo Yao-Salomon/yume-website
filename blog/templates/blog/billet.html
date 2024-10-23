@@ -1,0 +1,65 @@
+{% extends 'general/base.html'%}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item sm me-1"><a title="Lien vers l'accueil" class="text-white text-decoration-none" href="{% url 'home'%}">Accueil</a></li>
+<li class="breadcrumb-item sm me-1"><a title="Lien vers l'accueil" class="text-white text-decoration-none" href="{% url 'blog' %}">Blog</a></li>
+<li class="breadcrumb-item sm me-1 active" aria-current="page"><a title="Lien vers l'accueil" class="text-warning text-decoration-none" href="{% url 'billet' billet.slug %}">{{billet.titre}}</a></li>
+{% endblock %}
+
+
+{% block contenu %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex flex-column justify-content-center p-2 titre border-bottom border-5 border-primary">
+            <h2 class="text-center fs-2 fw-bolder"> {{billet.titre}}</h2>
+            <hr class="border border-3 border-dark">
+            <h6 class="text-center">{{billet.auteur}}</h6>
+            <p class="text-center small">Il y a {{billet.date_de_creation|timesince}}</p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-center p-2 titre border-bottom border-1 border-primary">
+            <h2 class="text-center
+             fs-2 fw-bolder"> Introduction</i></h2>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="fs-5 px-2">
+            <p class="text-justify "> {{billet.introduction|safe}}</i></p>
+        </div>
+    </div>
+    <div class="col-12">
+        {% for partie in parties %}
+        <div class="d-flex justify-content-center p-2 titre border-bottom border-1 border-primary">
+            <h2 class="text-center
+             fs-2 fw-bolder"> {{partie.titre}}</i></h2>
+        </div>
+        <div class="fs-5 px-2">
+            {{partie.contenu|safe}}
+        </div>
+        
+        {% empty %}
+        <p class="alert alert-primary">Aucune partie encore enregistré sur ce blog</p>
+        {% endfor %}
+    </div>
+    
+    <div class="col-12">
+        <div class="d-flex justify-content-center p-2 titre border-bottom border-1 border-primary">
+            <h2 class="text-center
+             fs-2 fw-bolder"> Conclusion</i></h2>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="fs-5 px-2">
+            <p class="text-justify "> {{billet.conclusion|safe}}</i></p>
+        </div>
+    </div>
+</div> 
+<script>
+    localStorage.setItem("username","Yao Salomon")
+    username=localStorage.getItem("username");
+    console.log(username)
+</script>
+{% endblock %}

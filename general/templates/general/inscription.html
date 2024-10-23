@@ -1,0 +1,374 @@
+{% extends 'general/base.html'%}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item sm me-1"><a title="Lien vers l'accueil" class="text-white text-decoration-none" href="{% url 'home'%}">Accueil</a></li>
+<li class="breadcrumb-item sm me-1 active" aria-current="page"><a title="Lien vers l'accueil" class="text-warning text-decoration-none" href="{% url 'inscription' %}">Inscription</a></li>
+{% endblock %} 
+
+{% block contenu %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-center p-2 titre border-bottom border-1 border-primary">
+            <h2 class="text-center
+             fs-2 fw-bolder"> Inscription</i></h2>
+        </div>
+    </div>
+    <div class=" col-md-3">
+
+    </div>
+    <div class="col-12 col-md-6 my-5">
+        <form class="p-2 border border-primary border-1" method="post" action="{%url 'inscription' %}" novalidate autocomplete="off">
+            {% csrf_token %}
+            {% if messages %}
+            <!--boucle sur les erreurs-->
+            {% for message in messages %}
+            <p class="alert alert-warning text-center small">{{ message }}</p>
+            {% endfor %} 
+            {% endif %}
+            <div class="d-flex justify-content-around align-items-around flex-column">
+                <div class="d-flex flex-column align-items-center  justify-content-center">
+                    <label for="{{form.username.id_for_label}}" class="fw-bolder text-primary">Nom & Prénoms</label>
+                    {{form.username}}
+                </div>
+                <div class="d-flex flex-column justify-content-center align-items-start" id="name_ajax">
+
+                </div>
+                {% if form.username.errors %}
+                    {% for error in form.username.errors %}
+                        <p class="alert alert-primary small">{{error}}</p>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="d-flex flex-column align-items-center  justify-content-center">
+                    <label for="{{form.email.id_for_label}}" class="fw-bolder text-primary">Email</label>
+                    {{form.email}}
+                </div>
+                <div class="d-flex flex-column justify-content-center align-items-start" id="email_ajax">
+
+                </div>
+                {% if form.email.errors %}
+                    {% for error in form.email.errors %}
+                        <p class="alert alert-primary small">{{error}}</p>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="d-flex flex-column align-items-center  justify-content-center">
+                    <label for="{{form.number.id_for_label}}" class="fw-bolder text-primary">Numéro de téléphone</label>
+                    {{form.number}}
+                </div>
+                <div class="d-flex flex-column justify-content-center align-items-start" id="number_ajax">
+
+                </div>
+                {% if form.number.errors %}
+                    {% for error in form.number.errors %}
+                        <p class="alert alert-primary small">{{error}}</p>
+                    {% endfor %}
+                {% endif %}
+                <input style="width: 0px;height: 0px;padding: 0;border: 0px;" type="password" name="password_temp" id="password" autocomplete="new-password">
+                <div class="d-flex flex-column align-items-center justify-content-center">
+                    <label for="{{form.pasword.id_for_label}}" class="fw-bolder text-primary">Mot de passe</label>
+                    {{form.password}}
+                </div>
+                <div class="d-flex p-2 flex-row justify-content-start" id="password_level">
+
+                </div>
+                <div class="d-flex mb-2 flex-column justify-content-center align-items-start p-2" id="password_ajax">
+                    	<p>Pour plus de sécurité votre mot de passe doit posséder les caractéristiques suivantes: Avoir au moins <span class="fw-bolder">6 caractères</span>, <span class="fw-bolder">avoir au moins 1 lettre miniscule</span>, <span class="fw-bolder">avoir au moins 1 lettre majuscule</span> et <span class="fw-bolder"> avoir au moins 1 chiffre</span>. Le tout correspond à un niveau de sécurité de 4</p>
+                </div>
+                {% if form.password.errors %}
+                    {% for error in form.password.errors %}
+                        <p class="alert alert-primary small">{{error}}</p>
+                    {% endfor %}
+                {% endif %}
+                <div class="d-flex flex-column align-items-center  justify-content-center">
+                    <label for="{{form.password_confirm.id_for_label}}" class="fw-bolder text-primary">Confirmez le mot de passe</label>
+                    {{form.password_confirm}}
+                </div>
+                <div class="d-flex flex-column p-2 justify-content-center align-items-start" id="password_confirm_ajax">
+
+                </div>
+                {% if form.referenced.errors %}
+                    {% for error in form.referenced.errors %}
+                        <p class="alert alert-primary small">{{error}}</p>
+                    {% endfor %}
+                {% endif %}
+                <div class="d-flex flex-column align-items-center  justify-content-center">
+                    <label for="{{form.referenced.id_for_label}}" class="fw-bolder text-primary">Voulez-vous êtes référencé sur le web?</label>
+                    <div class=" text-center d-flex flex-column justify-content-center align-items-center rounded border-primary border border-1 p-2">
+                        <p>Vous aurez une page web en votre nom qui présentera vos activités</p>
+                        {{form.referenced}}
+                    </div>
+                </div>
+                {% if form.referenced.errors %}
+                    {% for error in form.referenced.errors %}
+                        <p class="alert alert-primary small">{{error}}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="d-flex justify-content-center my-2">
+                <label for="pass_visible" class="fw-bolder text-primary me-2">Montrer les mots de passe</label>
+                <input type="checkbox" name="checkbox" class="form-check" id="reveal">    
+            </div>
+            <div class="d-flex justify-content-center">
+            <input type="submit" value="Valider" class="btn btn-primary my-2">
+           </div>
+        </form>
+    </div>
+    <div class="col-12 d-flex justify-content-center">
+        <p>Avez-vous déjà un compte? Connectez-vous <a href="{% url 'connexion' %}" title="Lien pour la connexion" class="btn btn-primary" >ici!</a></p>
+    </div>
+</div>
+<script>
+    //révéler les mots de passe
+    pass = document.getElementById('id_password')
+    pass_confirm = document.getElementById('id_password_confirm')
+    reveal = document.getElementById('reveal')
+
+    reveal.addEventListener('click', function() {
+        if (pass.getAttribute('type') == 'password') {
+
+            pass.setAttribute('type', 'text')
+        } else {
+            pass.setAttribute('type', 'password')
+        }
+        if (pass_confirm.getAttribute('type') == 'password') {
+            pass_confirm.setAttribute('type', 'text')
+        } else {
+            pass_confirm.setAttribute('type', 'password')
+        }
+
+    }, false)
+
+    //ajax vérification of all the field while typing
+    //fonction de vérification ajax
+
+    function checkBadNumber(valeur){
+        let regex=new RegExp('^([0-9]+ *){1,10}$')
+        if(regex.test(valeur)){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+    function checkBadEmail(valeur){
+        let regex=new RegExp('[a-z0-9]+@[a-z]+[.][a-z]{2,3}')
+        if(regex.test(valeur)){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+    
+    function checkPassword(valeur){
+
+        let password_level=0;
+        let context="danger";
+
+        let level1=new RegExp('.*[a-z]+.*');
+        let level2=new RegExp('.*[A-Z]+.*');
+        let level3=new RegExp('.*[0-9]+.*');
+
+        password_level+=level1.test(valeur)?1:0
+        password_level+=level2.test(valeur)?1:0
+        password_level+=level3.test(valeur)?1:0
+        password_level+=valeur.length>=6?1:0
+
+        if(password_level==2){
+            context="warning";
+        }else if(password_level==3){
+            context="success";
+        }else if(password_level==4){
+            context="primary";
+        }
+
+        return [password_level,context]
+        
+
+    }
+    function checkBadSign(valeur){
+
+        let regex=new RegExp('[<>&~^$*%;,?./!{()}#¨£²@=]')
+        if(regex.test(valeur)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    function checkBadLength(valeur){
+        normal_length=6
+        if(valeur.length<normal_length){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    function checkBadNumberLength(valeur){
+        normal_length=8
+        if(valeur.length<normal_length){
+            return true;
+        }else{
+            return false;
+        }
+    }
+   
+    function NameAjax(val){
+
+        var xhr=new XMLHttpRequest();
+        
+        xhr.open("GET","/");
+        
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState==4 && xhr.status==200){
+                if(checkBadLength(val)){
+                    document.getElementById("name_ajax").innerHTML="<p><i class='bi-x-circle-fill text-danger'></i> Le nom entré est trop court </p>" 
+                    
+                    if(checkBadSign(val)){
+                        document.getElementById("name_ajax").innerHTML+="<p><i class='bi-x-circle-fill text-danger'></i> Le nom ne doit pas contenir l'un des caractères suivants <>&~^$*%;,?./!{()}#\'\'\[\]¨£²@=</p>" 
+                    }
+                }else{
+
+                    if(checkBadSign(val)){
+                        document.getElementById("name_ajax").innerHTML="<p><i class='bi-x-circle-fill text-danger'></i> Le nom ne doit pas contenir l'un des caractères suivants <>&~^$*%;,?./!{()}#\'\'\[\]¨£²@=</p>" 
+                    }else{
+                        document.getElementById("name_ajax").innerHTML="<p><i class='bi-check-circle-fill text-success'></i> Le nom est au bon format</p>"
+                    }
+                }
+            }else if(xhr.readyState==4 && xhr.status!==200){
+                document.getElementById("name_ajax").innerHTML=xhr.statusText;
+            }
+
+        }
+        xhr.send(null);
+
+    }
+
+    function NumberAjax(val){
+
+        var xhr=new XMLHttpRequest();
+
+        xhr.open("GET","/");
+
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState==4 && xhr.status==200){
+
+                if(checkBadNumberLength(val)){
+                    document.getElementById("number_ajax").innerHTML="<p><i class='bi-x-circle-fill text-danger'></i> Le numéro entré est trop court </p>" 
+                    
+                    if(checkBadNumber(val)){
+                        document.getElementById("number_ajax").innerHTML+="<p><i class='bi-x-circle-fill text-danger'></i> Vous n'avez pas entré un numéro de téléphone </p>" 
+                    }
+                }else{
+
+                    if(checkBadNumber(val)){
+                        document.getElementById("number_ajax").innerHTML="<p><i class='bi-x-circle-fill text-danger'></i> Vous n'avez pas entré un numéro de téléphone </p>" 
+                    }else{
+                        document.getElementById("number_ajax").innerHTML="<p><i class='bi-check-circle-fill text-success'></i> Le numéro est au bon format</p>"
+                    }
+                }
+            }else if(xhr.readyState==4 && xhr.status!==200){
+                document.getElementById("name_ajax").innerHTML=xhr.statusText;
+            }
+
+        }
+        xhr.send(null);
+
+    }
+
+    function EmailAjax(val){
+
+        var xhr=new XMLHttpRequest();
+
+        xhr.open("GET","/");
+
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState==4 && xhr.status==200){
+
+                if(checkBadEmail(val)){
+                    document.getElementById("email_ajax").innerHTML="<p><i class='bi-x-circle-fill text-danger'></i> l'email entré n'est pas valide </p>" 
+                }else{
+
+                    document.getElementById("email_ajax").innerHTML="<p><i class='bi-check-circle-fill text-success'></i> L'email est au bon format</p>"
+                }
+            }else if(xhr.readyState==4 && xhr.status!==200){
+                document.getElementById("email_ajax").innerHTML=xhr.statusText;
+            }
+
+        }
+        xhr.send(null);
+
+    }
+    
+    function PasswordAjax(val){
+
+        var xhr=new XMLHttpRequest();
+
+        xhr.open("GET","/");
+
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState==4 && xhr.status==200){
+                document.getElementById("password_level").innerHTML="<p class='fw-bolder'>Niveau de sécurité : <span class='badge bg-"+checkPassword(val)[1]+"'>"+ checkPassword(val)[0]+"</span></p>"; 
+            }else if(xhr.readyState==4 && xhr.status!==200){
+                document.getElementById("password_ajax").innerHTML=xhr.statusText;
+            }
+
+        }
+        xhr.send(null);
+
+    }
+   
+    function PasswordConfirmAjax(val){
+
+        var xhr=new XMLHttpRequest();
+
+        xhr.open("GET","/");
+
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState==4 && xhr.status==200){
+                let password=document.getElementById("id_password").value
+
+                if(val===password){
+                    document.getElementById("password_confirm_ajax").innerHTML="<p> <i class='bi-check-circle-fill text-success'></i>Les mots de passe concordent</p>"; 
+                }else{
+                    document.getElementById("password_confirm_ajax").innerHTML="<p> <i class='bi-x-circle-fill text-danger'></i>Les mots de passe concordent</p>"; 
+                }
+                
+            }else if(xhr.readyState==4 && xhr.status!==200){
+                document.getElementById("password_confirm_ajax").innerHTML=xhr.statusText;
+            }
+
+        }
+        xhr.send(null);
+
+    }
+
+
+    (function(){
+
+        username=document.getElementById("id_username");
+        number=document.getElementById("id_number")
+        email=document.getElementById("id_email")
+        password=document.getElementById("id_password")
+        passwor_confirm=document.getElementById("id_password_cofirm")
+
+        username.addEventListener("keyup",function(e){
+                NameAjax(username.value)
+        },true)
+        number.addEventListener("keyup",function(e){
+                NumberAjax(number.value)
+        },true)
+        email.addEventListener("keyup",function(e){
+                EmailAjax(email.value)
+        },true)
+        password.addEventListener("keyup",function(e){
+                PasswordAjax(password.value)
+        },true)
+        pass_confirm.addEventListener("keyup",function(e){
+                PasswordConfirmAjax(pass_confirm.value)
+        },true)
+
+    })();
+</script>
+
+{% endblock %}

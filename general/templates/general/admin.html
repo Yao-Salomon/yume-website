@@ -1,0 +1,29 @@
+{% extends 'general/base.html'%}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item sm me-1"><a title="Lien vers l'accueil" class="text-white text-decoration-none" href="{% url 'home'%}">Accueil</a></li>
+<li class="breadcrumb-item sm me-1 active" aria-current="page"><a title="Lien vers l'accueil" class="text-warning text-decoration-none" href="{% url 'blog' %}">Blog</a></li>
+{% endblock %} 
+
+{% block contenu %}
+<div class="row">
+    <div class="col-12 col-md-3 bg-success">
+        <div>
+            <h1 class="small">Administraition des profiles</h1>
+            <a title="Création d'un nouveau nom de profile" href="" class="btn btn-primary">Créer un nouveau nom de profile</a>
+        </div>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <img class="img-fluid bg-dark rounded-pill" src="" style="width: 150px; height: 150px;" alt="">
+            {% if profile_owner %}
+            <a title="boutton de modification du profile" href="" class="btn btn-primary">Modifier la photo de profile</a>
+            {% endif %}
+        </div>
+        <div class="bg-secondary mt-2" style="min-height: 500px;">
+
+        </div>
+    </div>
+    <div class="col-12 col-md-9 bg-warning">
+        <p>Description</p>
+    </div>
+</div>
+{% endblock %}

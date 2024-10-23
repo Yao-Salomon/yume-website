@@ -1,0 +1,2 @@
+
+CURRENCY_UNIT="fcfa"

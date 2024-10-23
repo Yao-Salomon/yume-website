@@ -1,0 +1,15 @@
+{% extends "admin/base.html"%}
+{% block extrastyle %}
+    {{block.super}}
+    <style>
+        :root{
+            --primary:#49034d;
+            --header-bg:var(--primary);
+            --link-fg:var(--primary);
+            --default-button-bg:green;
+            --default-button-hover-bg:rgb(3, 192, 3);
+            --button-bg:var(--primary);
+            --button-hover-bg:#87288c;
+        }
+    </style>
+{% endblock %}

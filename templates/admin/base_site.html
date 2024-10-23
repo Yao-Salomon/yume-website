@@ -1,0 +1,12 @@
+{% extends "admin/base.html" %}
+{% load static %}
+{% block title %}
+    Page d'administration de Yume Côte d'Ivoire
+{% endblock %}
+{% block branding %}
+    <a title="logo de yume Côte d'Ivoire" href="{% url 'home' %}"><img src="{% static 'img/logos/logo_sombre.svg' %}" style="height: 40px; width:100px;" alt="">
+    </a>
+{% endblock %}
+{% block nav-global %}
+<p class="fs-5">Donnez vous le droit de rêvez</p>
+{% endblock %}

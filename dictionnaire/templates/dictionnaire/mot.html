@@ -1,0 +1,106 @@
+{% extends 'general/base.html'%}{% load custom %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item sm me-1"><a title="Lien vers l'accueil" class="text-white text-decoration-none" href="{% url 'home'%}">Accueil</a></li>
+<li class="breadcrumb-item sm me-1"><a title="Lien vers l'accueil" class="text-white text-decoration-none" href="{% url 'blog' %}">Utiles</a></li>
+<li class="breadcrumb-item sm me-1"><a title="Lien vers l'accueil" class="text-white text-decoration-none" href="{% url 'dictionnaire' %}">Dictionnaire</a></li>
+<li class="breadcrumb-item sm me-1 active" aria-current="page"><a title="Lien vers l'accueil" class="text-warning text-decoration-none" href="{% url 'mot' mot.slug %}">{{mot.terme}}</a></li>
+{% endblock %}
+
+
+{% block contenu %}
+<div class="row mt-3">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex flex-column justify-content-center p-2 titre border-bottom border-5 border-primary">
+                    <h2 class="text-center fs-2 fw-bolder"> {{mot.terme}}</h2>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-center p-2 titre border-bottom border-1 border-primary">
+                    <h2 class="text-center
+                     fs-2 fw-bolder"> Définition</i></h2>
+                </div>
+                <div class="fs-5 px-2">
+                    <p class="text-justify "> {{mot.definition|safe}}</i></p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <h6 class="fw-bolder">Source</h6>
+                {% for source in sources %}
+                    <div>
+                        <p class="small fw-bolder">{{source.auteur}},{{source.nom}},{{source.year}},{{source.site}}</p>
+                        <hr>
+                    </div>
+                {% empty %}
+                    <p>Aucune source citée</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% if has_photo == True %}
+    <div class="col">
+        <div id="Carousel" class="carousel slide" data-bs-ride="carousel" style="max-height: 600px;">
+            <div class="carousel-indicators">
+                {% for carousel in carousels %}
+                <!--debut si-->
+                {% if carousel|index:carousels == 0 %}
+                <button type="button" data-bs-target="#Carousel" data-bs-slide-to="0" class="active ibgcolor" aria-current="true" aria-label="Slide 1"></button>
+                <!--fin if pour attribuer la classe active seulement au premier-->
+                {% else %}
+                <button type="button" data-bs-target="#Carousel" data-bs-slide-to="{{carousel|index:carousels}}" class="ibgcolor" aria-label="Slide {{carousel.id}}"></button>
+                <!--fin du for-->
+                {% endif %} {% endfor%}
+            </div>
+            <div class="carousel-inner h-100 bg-primary rounded">
+                {% for carousel in carousels %}
+                <!--block if pour attribuer la classe active seulement au premier-->
+                {% if carousel|index:carousels == 0 %}
+                <div class="carousel-item active h-100 mb-2" data-bs-interval="10000">
+                    <div class="d-flex justify-content-center bg-primary rounded mb-1" style="height:40px;">
+                        <p class="text-white fs-5">{{carousel.mot.terme}}</p>
+                        </div>
+                    <div class="d-flex  flex-column justify-content-center align-items-center">
+                        <a target="_blank" rel="nofollow, noreferrer" href="{{carousel.photo.url}}">
+                            <img src="{{carousel.photo.url}}" class="img-fluid rounded" alt="" style="height: 300px;">
+                        </a>
+                        <div class="d-flex flex-column justify-content-center align-items-center text-white mt-1 mb-3">
+                            <h6 class="fw-bolder small">Credit</h5>
+                            <p class="small">{{carousel.credit}}</p>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="carousel-item mb-2" data-bs-interval="10000">
+                    <div class="d-flex justify-content-center bg-primary rounded mb-1" style="height:40px;">
+                        <p class="text-white fs-5">{{carousel.mot.terme}}</p>
+                        </div>
+                    <div class="d-flex  flex-column justify-content-center align-items-center">
+                        <a target="_blank" rel="nofollow, noreferrer" href="{{carousel.photo.url}}">
+                            <img src="{{carousel.photo.url}}" class="img-fluid rounded" alt="" style="height: 300px;">
+                        </a>
+                        <div class="d-flex flex-column justify-content-center align-items-center text-white mt-1 mb-3">
+                            <h6 class="fw-bolder small">Credit</h5>
+                            <p class="small">{{carousel.credit}}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %} 
+                {% empty %}
+                
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#Carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#Carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">next</span>
+            </button>
+        </div>
+    </div>
+    {% endif %}
+</div> 
+{% endblock %}

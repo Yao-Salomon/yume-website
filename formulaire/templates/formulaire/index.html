@@ -1,0 +1,34 @@
+{% extends 'general/base.html'%}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item sm me-1"><a title="Lien vers l'accueil" class="text-white text-decoration-none" href="{% url 'home'%}">Accueil</a></li>
+<li class="breadcrumb-item sm me-1 active" aria-current="page"><a title="Lien vers l'accueil" class="text-warning text-decoration-none" href="{% url 'formulaires' %}">Formulaires</a></li>
+{% endblock %} 
+
+{% block contenu %}
+<div class="row mt-2">
+    <div class="col-12 titre mb-3">
+        <h1 class="fs-1 text-center">Choissisez le type de formulaire que vous voulez créer</h1>
+    </div>
+    {% for formulaire in type_formulaires %}
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card bg-primary text-white">
+            <div class="card-header titre border-1 border-bottom border-light">
+                <p class="fs-4"><i class="bi-{{formulaire.icon}}"></i> {{formulaire.nom}}</p>
+                <a href="{% url formulaire.lien %}" class="btn btn-light stretched-link">Créer un nouveau formulaire</a>
+            </div>
+            <div class="card-body">
+                <p>{{formulaire.description}}</p>
+            </div>
+            <div class="card-footer">
+                <p class="small">Une propriété de Yume Côte D'Ivoire</p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-3">
+        <p>Aucun formualire enregistré</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
